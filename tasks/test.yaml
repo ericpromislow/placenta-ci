@@ -1,0 +1,7 @@
+---
+inputs:
+- name: src
+  path: src/github.com/ericpromislow/placenta
+- name: src-ci
+run:
+  path: src-ci/tasks/test.sh
