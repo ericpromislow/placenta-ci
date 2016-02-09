@@ -1,0 +1,16 @@
+resources:
+- name: pr-checker
+  type: github-pr
+  source:
+    uri: git@github.com:ericpromislow/placenta.git
+    private_key: {{git-private-key}}
+    access_token: {{git-access-token}}
+jobs:
+- name: test
+  plan:
+  - aggregate:
+    - get: pr-checker
+      trigger: true
+  - task: test
+    privileged: true
+    file: src-ci/tasks/test.yaml
