@@ -2,14 +2,22 @@ resources:
 - name: pr-checker
   type: github-pr
   source:
-    uri: git@github.com:ericpromislow/placenta.git
-    private_key: {{git-private-key}}
+    uri: {{git-placenta-uri}}
+#    private_key: {{git-private-key}}
     access_token: {{git-access-token}}
+- name: src-ci
+  type: git
+  source:
+    uri: {{git-placenta-ci-uri}}
+    access_token: {{git-access-token}}
+#    private_key: {{git-private-key}}
 jobs:
 - name: test
   plan:
   - aggregate:
     - get: pr-checker
+      trigger: true
+    - get: src-ci
       trigger: true
   - task: test
     privileged: true
